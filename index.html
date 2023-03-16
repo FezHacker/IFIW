@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>IFIW - WiFi Password Extractor</title>
+    <title>Get Wifi Password</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>IFIW - WiFi Password Extractor</h1>
-    <p>Select the network you want to see the password for:</p>
-    <select id="networks"></select>
-    <div class="result" style="display: none;">
-        <p>Password:</p>
-        <p id="password"></p>
+    <div class="container">
+        <h1>Get Wifi Password</h1>
+        <label for="networks">Select Wifi Network:</label>
+        <select id="networks"></select>
+        <br><br>
+        <label for="password">Password:</label>
+        <div id="password"></div>
+        <br><br>
+        <div class="result">Password found!</div>
     </div>
-
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 </html>

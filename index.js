@@ -1,3 +1,5 @@
+const { getWifiNetworks } = require('./wifi_networks.py');
+const { getWifiPassword } = require('./wifi_password.py');
 const networksDropdown = document.getElementById("networks");
 const passwordField = document.getElementById("password");
 const resultDiv = document.querySelector(".result");

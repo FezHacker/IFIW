@@ -1,41 +1,46 @@
-const wifiList = [
-	{
-		name: "WiFi 1",
-		strength: 90,
-		password: "password1"
-	},
-	{
-		name: "WiFi 2",
-		strength: 75,
-		password: "password2"
-	},
-	{
-		name: "WiFi 3",
-		strength: 80,
-		password: "password3"
-	},
-	{
-		name: "WiFi 4",
-		strength: 85,
-		password: "password4"
-	}
-];
+const wifiList = document.querySelector("#wifiList");
+const getPasswordBtn = document.querySelector("#getPasswordBtn");
+const result = document.querySelector("#result");
 
-const wifiSelect = document.getElementById("wifi-select");
-const passwordField = document.getElementById("password-field");
-const getPasswordBtn = document.getElementById("get-password-btn");
-
-// Add options to the select element
-for (let i = 0; i < wifiList.length; i++) {
-	const option = document.createElement("option");
-	option.value = wifiList[i].password;
-	option.text = wifiList[i].name;
-	wifiSelect.add(option);
-}
-
-// Get the selected option's password and display it
-getPasswordBtn.addEventListener("click", () => {
-	const selectedOption = wifiSelect.options[wifiSelect.selectedIndex];
-	passwordField.value = selectedOption.value;
+window.addEventListener("load", () => {
+  if ("wifi" in navigator) {
+    navigator.wifi
+      .getNetworks()
+      .then((networks) => {
+        networks.forEach((network) => {
+          const option = document.createElement("option");
+          option.value = network.ssid;
+          option.innerText = network.ssid;
+          wifiList.appendChild(option);
+        });
+      })
+      .catch((error) => console.log(error));
+  } else {
+    alert("WiFi is not supported on this device");
+  }
 });
 
+function getPassword() {
+  const selectedNetwork = wifiList.value;
+  if (selectedNetwork) {
+    navigator.wifi
+      .getNetworks()
+      .then((networks) => {
+        const network = networks.find((network) => network.ssid === selectedNetwork);
+        if (network) {
+          network
+            .getPassword()
+            .then((password) => {
+              result.innerText = `Password: ${password}`;
+              result.style.display = "block";
+            })
+            .catch((error) => console.log(error));
+        } else {
+          console.log(`Network ${selectedNetwork} not found`);
+        }
+      })
+      .catch((error) => console.log(error));
+  } else {
+    alert("Please select a network from the list");
+  }
+}

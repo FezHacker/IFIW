@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Hackermon WiFi Password Finder</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-	<div class="container">
-		<h1>Hackermon WiFi Password Finder</h1>
-		<div class="wifi-list">
-			<label for="wifi-select">Select nearest WiFi:</label>
-			<select id="wifi-select">
-				<option value="" selected disabled hidden>Choose here</option>
-			</select>
-		</div>
-		<button id="get-password-btn">Obtain Password</button>
-		<div class="password-display">
-			<label for="password-field">Password:</label>
-			<input type="text" id="password-field" readonly>
-		</div>
-	</div>
-
-	<script src="app.js"></script>
-</body>
+  <head>
+    <title>WiFi Password Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>WiFi Password Finder</h1>
+      <p>Select the closest WiFi network:</p>
+      <select id="wifiList"></select>
+      <br><br>
+      <button id="getPasswordBtn" onclick="getPassword()">Obtain Password</button>
+      <br><br>
+      <div id="result" class="result"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>

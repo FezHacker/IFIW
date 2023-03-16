@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>IFIW - I Forgot my Wifi Password</title>
+    <meta charset="UTF-8" />
+    <title>IFIW - Find WiFi Passwords</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>IFIW - I Forgot my Wifi Password</h1>
-    <form>
-      <label for="wifi-select">Select your wifi network:</label>
-      <select id="wifi-select"></select>
-      <br><br>
-      <label for="wifi-password">Your wifi password:</label>
-      <input type="password" id="wifi-password" disabled>
-      <br><br>
-      <button type="button" id="find-password-button">Find Password</button>
-    </form>
-    <p class="result" style="display: none;"></p>
-
-    <script src="app.js"></script>
+    <div class="container">
+      <h1>IFIW - Find WiFi Passwords</h1>
+      <form id="wifi-form">
+        <label for="wifi-networks">Select a Wi-Fi network:</label>
+        <select id="wifi-networks" name="wifi-networks"></select>
+        <button type="submit">Find Password</button>
+      </form>
+      <div class="result">
+        <h2>Password for network: <span id="wifi-name"></span></h2>
+        <p id="password"></p>
+      </div>
+    </div>
+    <script src="main.js"></script>
   </body>
 </html>

@@ -1,46 +1,68 @@
-const wifiList = document.querySelector("#wifiList");
-const getPasswordBtn = document.querySelector("#getPasswordBtn");
-const result = document.querySelector("#result");
+const wifiSelect = document.querySelector('#wifi-select');
+const wifiPassword = document.querySelector('#wifi-password');
+const findPasswordButton = document.querySelector('#find-password-button');
+const result = document.querySelector('.result');
 
-window.addEventListener("load", () => {
-  if ("wifi" in navigator) {
-    navigator.wifi
-      .getNetworks()
-      .then((networks) => {
-        networks.forEach((network) => {
-          const option = document.createElement("option");
-          option.value = network.ssid;
-          option.innerText = network.ssid;
-          wifiList.appendChild(option);
-        });
-      })
-      .catch((error) => console.log(error));
-  } else {
-    alert("WiFi is not supported on this device");
-  }
-});
+// When the page loads, call the getWifiNetworks function
+window.onload = () => {
+  getWifiNetworks();
+};
 
-function getPassword() {
-  const selectedNetwork = wifiList.value;
-  if (selectedNetwork) {
-    navigator.wifi
-      .getNetworks()
-      .then((networks) => {
-        const network = networks.find((network) => network.ssid === selectedNetwork);
-        if (network) {
-          network
-            .getPassword()
-            .then((password) => {
-              result.innerText = `Password: ${password}`;
-              result.style.display = "block";
-            })
-            .catch((error) => console.log(error));
-        } else {
-          console.log(`Network ${selectedNetwork} not found`);
-        }
-      })
-      .catch((error) => console.log(error));
-  } else {
-    alert("Please select a network from the list");
-  }
+// Function to get a list of available wifi networks
+function getWifiNetworks() {
+  wifiSelect.innerHTML = '';
+  wifiPassword.value = '';
+  wifiPassword.disabled = true;
+  findPasswordButton.disabled = true;
+  result.style.display = 'none';
+
+  // Create a new XMLHttpRequest object
+  const xhr = new XMLHttpRequest();
+
+  // Set up the request
+  xhr.open('GET', '/wifi-networks');
+
+  // Set up a handler for when the request finishes
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      const networks = JSON.parse(xhr.responseText);
+
+      // Loop through the list of networks and add them to the select element
+      networks.forEach((network) => {
+        const option = document.createElement('option');
+        option.value = network.ssid;
+        option.text = network.ssid;
+        wifiSelect.add(option);
+      });
+
+      wifiPassword.disabled = false;
+      findPasswordButton.disabled = false;
+    } else {
+      console.error(xhr.statusText);
+    }
+  };
+
+  // Send the request
+  xhr.send();
 }
+
+// Function to find the password for the selected network
+function findWifiPassword() {
+  const ssid = wifiSelect.value;
+  const xhr = new XMLHttpRequest();
+
+  xhr.open('POST', '/wifi-password');
+  xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      result.textContent = `Your wifi password is: ${JSON.parse(xhr.responseText).password}`;
+    } else {
+      console.error(xhr.statusText);
+    }
+  };
+
+  xhr.send(JSON.stringify({ ssid }));
+}
+
+findPasswordButton.addEventListener('click', findWifiPassword);

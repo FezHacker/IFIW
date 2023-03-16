@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WiFi Password Finder</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title>IFIW - I Forgot my Wifi Password</title>
   </head>
   <body>
-    <div class="container">
-      <h1>WiFi Password Finder</h1>
-      <p>Select the closest WiFi network:</p>
-      <select id="wifiList"></select>
+    <h1>IFIW - I Forgot my Wifi Password</h1>
+    <form>
+      <label for="wifi-select">Select your wifi network:</label>
+      <select id="wifi-select"></select>
       <br><br>
-      <button id="getPasswordBtn" onclick="getPassword()">Obtain Password</button>
+      <label for="wifi-password">Your wifi password:</label>
+      <input type="password" id="wifi-password" disabled>
       <br><br>
-      <div id="result" class="result"></div>
-    </div>
-    <script src="script.js"></script>
+      <button type="button" id="find-password-button">Find Password</button>
+    </form>
+    <p class="result" style="display: none;"></p>
+
+    <script src="app.js"></script>
   </body>
 </html>

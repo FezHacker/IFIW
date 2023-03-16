@@ -1,3 +1,6 @@
+import { getWifiNetworks } from './wifi_networks.py';
+import { getWifiPassword } from './wifi_password.py';
+
 const networksDropdown = document.getElementById("networks");
 const passwordField = document.getElementById("password");
 const resultDiv = document.querySelector(".result");

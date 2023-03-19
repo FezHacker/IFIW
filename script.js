@@ -12,16 +12,16 @@ form.addEventListener('submit', (e) => {
   const airportCode = input.value.trim();
 
   // make the API call to fetch METAR and TAF data for the airport
-  fetch(`http://localhost:3000/weather?airportCode=${airportCode}`)
+  fetch(`https://fezhacker.github.io/weather?airportCode=${airportCode}`)
     .then(response => response.json())
     .then(data => {
-      metarResult.textContent = data.metar;
-      tafResult.textContent = data.taf;
-    })
-    .catch(error => {
-      console.error(error);
-      metarResult.textContent = 'Error fetching METAR data. Please check the airport code and try again.';
-      tafResult.textContent = 'Error fetching TAF data. Please check the airport code and try again.';
-    });
+    metarResult.textContent = data.metar;
+    tafResult.textContent = data.taf;
+  })
+  .catch(error => {
+    console.error(error);
+    metarResult.textContent = 'Error fetching METAR data. Please check the airport code and try again.';
+    tafResult.textContent = 'Error fetching TAF data. Please check the airport code and try again.';
+  });
 });
 

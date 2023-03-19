@@ -12,7 +12,7 @@ form.addEventListener('submit', (e) => {
   const airportCode = input.value.trim();
 
   // make the API call to fetch METAR and TAF data for the airport
-  fetch(`/api/metar-taf/${airportCode}`)
+  fetch('/weather?airportCode=' + airportCode)
     .then(response => response.json())
     .then(data => {
       // display the METAR and TAF data

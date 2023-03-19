@@ -12,7 +12,7 @@ form.addEventListener('submit', (e) => {
   const airportCode = input.value.trim();
 
   // make the API call to fetch METAR and TAF data for the airport
-  fetch(`https://api.aviationweather.gov/metar/data?station=${airportCode}`)
+  fetch(`https://aviationweather.gov/metar/data?ids=${airportCode}&format=raw&date=&hours=0`)
     .then(response => response.text())
     .then(data => {
       // extract the METAR data from the response
@@ -24,7 +24,7 @@ form.addEventListener('submit', (e) => {
       metarResult.textContent = 'Error fetching METAR data. Please check the airport code and try again.';
     });
 
-  fetch(`https://api.aviationweather.gov/taf/data?station=${airportCode}`)
+  fetch(`https://aviationweather.gov/taf/data?ids=${airportCode}&format=raw&date=&hours=0`)
     .then(response => response.text())
     .then(data => {
       // extract the TAF data from the response

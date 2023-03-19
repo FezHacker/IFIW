@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head><title>Airport Weather</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="script.js"></script>
+  <head>
+    <title>Airport Weather</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
     <h1>Airport Weather</h1>
-    <form>
-      <label for="airport-code">Enter Airport Code:</label>
-      <input type="text" id="airport-code" name="airport-code">
+    <form id="airport-form">
+      <label for="airport-input">Enter Airport Code:</label>
+      <input type="text" id="airport-input" name="airport-input">
       <button type="submit">Get Weather</button>
     </form>
+    <div>
+      <h2>METAR Result:</h2>
+      <p id="metar-result"></p>
+    </div>
+    <div>
+      <h2>TAF Result:</h2>
+      <p id="taf-result"></p>
+    </div>
   </body>
 </html>

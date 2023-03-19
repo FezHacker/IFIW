@@ -12,27 +12,16 @@ form.addEventListener('submit', (e) => {
   const airportCode = input.value.trim();
 
   // make the API call to fetch METAR and TAF data for the airport
-  fetch(`https://aviationweather.gov/metar/data?ids=${airportCode}&format=raw&date=&hours=0`)
-    .then(response => response.text())
+  fetch(`/api/metar-taf/${airportCode}`)
+    .then(response => response.json())
     .then(data => {
-      // extract the METAR data from the response
-      const metar = data.match(/<code>(.*?)<\/code>/)[1];
-      metarResult.textContent = metar; // display the METAR data
+      // display the METAR and TAF data
+      metarResult.textContent = data.metar;
+      tafResult.textContent = data.taf;
     })
     .catch(error => {
       console.error(error);
-      metarResult.textContent = 'Error fetching METAR data. Please check the airport code and try again.';
-    });
-
-  fetch(`https://aviationweather.gov/taf/data?ids=${airportCode}&format=raw&date=&hours=0`)
-    .then(response => response.text())
-    .then(data => {
-      // extract the TAF data from the response
-      const taf = data.match(/<code>(.*?)<\/code>/)[1];
-      tafResult.textContent = taf; // display the TAF data
-    })
-    .catch(error => {
-      console.error(error);
-      tafResult.textContent = 'Error fetching TAF data. Please check the airport code and try again.';
+      metarResult.textContent = 'Error fetching data. Please check the airport code and try again.';
+      tafResult.textContent = '';
     });
 });
